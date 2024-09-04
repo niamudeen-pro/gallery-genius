@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { store } from './store';
-import { Provider } from 'react-redux';
 import { ToastContainerNotification } from './utils/notifications';
 import './style.css';
 
@@ -21,9 +19,7 @@ const client = new QueryClient({
 
 root.render(
     <QueryClientProvider client={client}>
-        <Provider store={store}>
-            <App />
-            <ToastContainerNotification />
-        </Provider>
+        <App />
+        <ToastContainerNotification />
     </QueryClientProvider>
 );

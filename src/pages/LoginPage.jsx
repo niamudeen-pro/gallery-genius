@@ -1,9 +1,9 @@
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setDataIntoLc } from '../utils/helper';
 import { useMutation } from '@tanstack/react-query';
 import axiosInstance from '../utils/axios';
-import { updateAuthUser } from '../store/features/authSlice';
+// import { updateAuthUser } from '../store/features/authSlice';
 import { sendNotification } from '../utils/notifications';
 import { useForm } from 'react-hook-form';
 import { FORM_ERROR_MESSAGES, REGEX, RESPONSE_MESSAGES } from '../constants';
@@ -17,7 +17,7 @@ export default function LoginPage() {
     } = useForm();
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const { mutate, isPending } = useMutation({
         mutationFn: async (user) => {
@@ -27,7 +27,7 @@ export default function LoginPage() {
         onSuccess: (response) => {
             if (response?.code === 'SUCCESS') {
                 const { token, user } = response;
-                dispatch(updateAuthUser(user));
+                // dispatch(updateAuthUser(user));
                 setDataIntoLc('token', token);
                 setDataIntoLc('userId', user?._id);
                 navigate('/products');
