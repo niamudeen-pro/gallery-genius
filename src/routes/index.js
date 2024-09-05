@@ -3,9 +3,10 @@ import AppLayout from '../components/layout/AppLayout';
 import LandingPage from '../pages/LandingPage';
 
 import NotFoundPage from '../pages/NotFoundPage';
-import ProductsPage from '../pages/ProductsPage';
-import LoginPage from '../pages/LoginPage';
-import GalleryPage from '../pages/GalleryPage';
+import AboutUsPage from '../pages/AboutUsPage';
+import ContactUsPage from '../pages/ContactUsPage';
+import UploadsPage from '../pages/UploadsPage';
+import DownloadsPage from '../pages/DownloadsPage';
 
 export const ALL_ROUTES = [
     {
@@ -16,25 +17,27 @@ export const ALL_ROUTES = [
     },
     {
         id: 2,
-        path: '/login',
-        element: <LoginPage />,
-        title: 'Login',
-        isButton: true,
+        path: '/about-us',
+        element: <AboutUsPage />,
+        title: 'about us',
     },
     {
         id: 3,
-        path: '/products',
-        element: <ProductsPage />,
-        title: 'Products',
-        isPrivate: true,
+        path: '/contact',
+        title: 'contact',
+        element: <ContactUsPage />,
     },
     {
         id: 4,
-        path: '/gallery-page',
-        element: <GalleryPage />,
-        title: 'Gallery',
-        isPrivate: true,
-        ishidden: true,
+        path: '/uploads',
+        element: <UploadsPage />,
+        excudleNavbar: true,
+    },
+    {
+        id: 5,
+        path: '/downloads',
+        element: <DownloadsPage />,
+        excudleNavbar: true,
     },
 ];
 

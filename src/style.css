@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,6 +24,10 @@ h1 {
     font-size: clamp(30px, 5vw, 60px);
 }
 
+h2 {
+    @apply text-3xl;
+}
+
 p {
     font-size: clamp(12px, 2vw, 14px);
 }
@@ -34,6 +42,41 @@ p {
 
 .sectionCustomHeight {
     min-height: calc(100vh - 80px);
+}
+
+.brandFont {
+    font-family: 'Inter', sans-serif;
+}
+
+.btn1 {
+    @apply relative py-3 px-8 rounded-lg capitalize cursor-pointer border-black bg-gray-100 overflow-hidden;
+}
+
+.btn1:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: black;
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: width 0.4s ease;
+    z-index: 0;
+}
+
+.btn1:hover:before,
+.btn1.active_btn:before {
+    width: 100%;
+}
+.btn1:hover span,
+.btn1.active_btn span {
+    color: white;
+}
+
+.btn1 span {
+    position: relative;
+    z-index: 1;
 }
 
 /* custom css ends  here  */
@@ -56,11 +99,12 @@ p {
     }
 
     .btn {
-        @apply bg-black text-white text-xs py-3 px-8 rounded-lg shadow-lg capitalize cursor-pointer hover:bg-black/80 transition-all duration-300 ease-in-out;
+        @apply bg-black text-white text-sm py-3 px-8 rounded-lg shadow-lg capitalize cursor-pointer hover:bg-black/80 transition-all duration-300 ease-in-out;
+        /* @apply bg-black text-white text-sm py-3 px-8 rounded-lg shadow-lg capitalize cursor-pointer hover:bg-black/80 transition-all duration-300 ease-in-out; */
     }
 
     .grayBtn {
-        @apply text-xs bg-gray-100 py-3 px-8 rounded-md transition-all duration-300 ease-in-out;
+        @apply text-sm  bg-gray-100 py-3 px-8 rounded-md transition-all duration-300 ease-in-out;
     }
 
     .section {

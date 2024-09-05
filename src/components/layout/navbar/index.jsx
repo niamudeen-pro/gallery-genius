@@ -30,7 +30,7 @@ export default function Navbar() {
         <header className="shadow-sm sticky top-0 z-50 bg-white">
             <div className="custom_container flex_between h-20">
                 <Link to="/">
-                    <p className="text-lg">Gallery Genius</p>
+                    <p className="text-lg brandFont">Gallery Genius</p>
                 </Link>
                 <nav
                     className={`hidden lg:block ${
@@ -39,17 +39,19 @@ export default function Navbar() {
                     }`}
                 >
                     <ul
-                        className={`flex_center gap-4 capitalize ${
-                            isNavOpen ? 'flex-col' : ''
+                        className={`flex_center  capitalize ${
+                            isNavOpen ? 'flex-col gap-7' : 'gap-14'
                         }`}
                     >
-                        {NAV_MEUS?.map((route) => (
-                            <NavLinks
-                                key={route.id}
-                                route={route}
-                                setIsNavOpen={setIsNavOpen}
-                            />
-                        ))}
+                        {NAV_MEUS?.filter((route) => !route?.excudleNavbar).map(
+                            (route) => (
+                                <NavLinks
+                                    key={route.id}
+                                    route={route}
+                                    setIsNavOpen={setIsNavOpen}
+                                />
+                            )
+                        )}
 
                         {isLoggedIn && (
                             <button className="grayBtn" onClick={handleLogout}>
