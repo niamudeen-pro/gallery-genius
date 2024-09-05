@@ -56,25 +56,23 @@ export default function FileUploader({ setFiles, files }) {
                     />
                 </div>
                 <div className="bg-soft_gray rounded-md p-16 flex_center">
-                    <div className="flex justify-center flex-col items-center gap-3">
+                    <label
+                        htmlFor="file-uploader"
+                        className="text-base cursor-pointer flex justify-center flex-col items-center gap-3"
+                    >
                         <FaImage size={34} className="text-gray-200" />
-                        <label
-                            htmlFor="file-uploader"
-                            className="text-base cursor-pointer"
-                        >
-                            <p className="text-base">Browse Files</p>
-                            {/* <p className="text-xs text-gray-400">
+                        <p className="text-base">Browse Files</p>
+                        {/* <p className="text-xs text-gray-400">
                                 JPG, PNG or JPEG (size. 200KB)
                             </p> */}
-                        </label>
-                        <input
-                            id="file-uploader"
-                            type="file"
-                            multiple
-                            hidden
-                            onChange={handleOnChange}
-                        />
-                    </div>
+                    </label>
+                    <input
+                        id="file-uploader"
+                        type="file"
+                        multiple
+                        hidden
+                        onChange={handleOnChange}
+                    />
                 </div>
 
                 {/* files */}
