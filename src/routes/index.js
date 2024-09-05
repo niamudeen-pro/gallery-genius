@@ -7,6 +7,7 @@ import AboutUsPage from '../pages/AboutUsPage';
 import ContactUsPage from '../pages/ContactUsPage';
 import UploadsPage from '../pages/UploadsPage';
 import DownloadsPage from '../pages/DownloadsPage';
+import FolderPage from '../pages/FolderPage';
 
 export const ALL_ROUTES = [
     {
@@ -37,6 +38,12 @@ export const ALL_ROUTES = [
         id: 5,
         path: '/downloads',
         element: <DownloadsPage />,
+        excudleNavbar: true,
+    },
+    {
+        id: 6,
+        path: '/folder/:slug',
+        element: <FolderPage />,
         excudleNavbar: true,
     },
 ];

@@ -3,9 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 export function NavLinks({ route, setIsNavOpen }) {
     const currentRoute = useLocation().pathname;
 
-    const navLinkClass = `text-base ${
-        currentRoute === route.path && 'font-semibold'
-    }`;
+    const navLinkClass = `text-base ${currentRoute === route.path && ''}`;
 
     return (
         <>
