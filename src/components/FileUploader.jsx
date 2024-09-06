@@ -1,35 +1,15 @@
-import { useState } from 'react';
 import { fileSizeConverter, getFileIconByMimeType } from '../utils/helper';
 import { FaImage } from 'react-icons/fa6';
 
-export default function FileUploader({ setFiles, files }) {
-    const [progress, setProgress] = useState({}); // State to track progress of each file
-
-    const [folderName, setFolderName] = useState(null);
-
+export default function FileUploader({
+    setFiles,
+    files,
+    folderName,
+    setFolderName,
+}) {
     const handleOnChange = (event) => {
         const newFiles = Array.from(event.target.files);
         setFiles([...files, ...newFiles]);
-
-        // Simulate progress
-        newFiles.forEach((file, index) => {
-            simulateProgress(file, index);
-        });
-    };
-
-    const simulateProgress = (file, index) => {
-        let progressValue = 0;
-        const interval = setInterval(() => {
-            progressValue += 10; // Increase progress
-            setProgress((prev) => ({
-                ...prev,
-                [index]: progressValue,
-            }));
-
-            if (progressValue >= 100) {
-                clearInterval(interval);
-            }
-        }, 500);
     };
 
     const handleDeleteFile = (index) => {
@@ -46,6 +26,7 @@ export default function FileUploader({ setFiles, files }) {
                     You can choose to use this folder for your images, or you
                     can store them elsewhere if you prefer.
                 </p>
+
                 <div className="space-y-2">
                     <label>Folder name</label>
                     <input
@@ -93,18 +74,6 @@ export default function FileUploader({ setFiles, files }) {
                                         <p className="text-xs text-gray-500">
                                             {fileSizeConverter(file.size)} KB
                                         </p>
-
-                                        {/* Progress Bar */}
-                                        {/* <div className="w-full rounded-full h-1 mt-2">
-                                            <div
-                                                className="bg-blue-600 h-1 rounded-full"
-                                                style={{
-                                                    width: `${
-                                                        progress[index] || 0
-                                                    }%`,
-                                                }}
-                                            />
-                                        </div> */}
                                     </div>
                                 </div>
 

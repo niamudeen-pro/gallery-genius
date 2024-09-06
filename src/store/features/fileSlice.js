@@ -6,8 +6,19 @@ const fileSlice = createSlice({
         data: [],
     },
     reducers: {
-        addFiles: (state, action) => {
-            state.data = action.payload;
+        fileUpload: (state, action) => {
+            const { files, folder_name, folder_created_at } = action.payload;
+
+            // Convert files to metadata
+            // const fileMetadata = files.map((file) => ({
+            //     ...file, // Spread all properties of the file object
+            // }));
+
+            state.data.push({
+                list: files,
+                folder_name: folder_name || null,
+                folder_created_at: folder_created_at || null,
+            });
         },
         clearFiles: (state) => {
             state.data = [];
@@ -15,5 +26,5 @@ const fileSlice = createSlice({
     },
 });
 
-export const { addFiles, clearFiles } = fileSlice.actions;
+export const { fileUpload, clearFiles } = fileSlice.actions;
 export default fileSlice.reducer;

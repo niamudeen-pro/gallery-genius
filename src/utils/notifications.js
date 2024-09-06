@@ -12,7 +12,7 @@ const generateToast = (type, msg) => {
     }[type || 'error'];
 
     return toastType(`${msg}`, {
-        className: 'bg-white relative z-50 text-black text-xs',
+        className: 'bg-white relative z-50 text-black text-sm',
         position: 'top-center',
         autoClose: 1000,
         hideProgressBar: true,

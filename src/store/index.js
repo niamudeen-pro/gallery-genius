@@ -9,4 +9,8 @@ export const store = configureStore({
         fileUploadDialog: fileUploadDialogSlice,
         files: fileSlice,
     },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
 });

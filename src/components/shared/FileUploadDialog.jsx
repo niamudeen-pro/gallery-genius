@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { close } from '../../store/features/fileUploadDialogSlice';
 import FileUploader from '../FileUploader';
-import { addFiles } from '../../store/features/fileSlice';
+import { fileUpload } from '../../store/features/fileSlice';
+import { useNavigate } from 'react-router-dom';
+import { sendNotification } from '../../utils/notifications';
 
 export default function FileUploadDialog() {
     const isOpen = useSelector((state) => state.fileUploadDialog.open);
 
     const [files, setFiles] = useState([]);
+    const [folderName, setFolderName] = useState('');
+
+    const naviagte = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -16,10 +21,26 @@ export default function FileUploadDialog() {
         setFiles([]);
     };
 
+    // file upload hanlde **********************************************
     const handleUpload = () => {
-        dispatch(addFiles(files));
+        if (folderName && files?.length === 0) {
+            sendNotification('warning', 'Please select atleast one file');
+            return;
+        }
+
+        const currentDate = new Date().toLocaleDateString();
+        dispatch(
+            fileUpload({
+                files,
+                folder_name: folderName || null,
+                folder_created_at: folderName ? currentDate : null,
+            })
+        );
         setFiles([]);
+        setFolderName('');
         dispatch(close());
+        sendNotification('success', 'Files uploaded successfully');
+        if (folderName) return naviagte(`/folder/${folderName}`);
     };
 
     return (
@@ -54,7 +75,12 @@ export default function FileUploadDialog() {
                         </div>
                         {/* Form  */}
                         <div className="mt-8 mb-16">
-                            <FileUploader files={files} setFiles={setFiles} />
+                            <FileUploader
+                                files={files}
+                                setFiles={setFiles}
+                                folderName={folderName}
+                                setFolderName={setFolderName}
+                            />
                         </div>
                         <div className="absolute bottom-8 right-8">
                             <button className="btn" onClick={handleUpload}>
