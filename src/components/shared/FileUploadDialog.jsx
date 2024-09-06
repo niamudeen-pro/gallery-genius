@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { close } from '../../store/features/fileUploadDialogSlice';
 import FileUploader from '../FileUploader';
 import { fileUpload } from '../../store/features/fileSlice';
-import { useNavigate } from 'react-router-dom';
 import { sendNotification } from '../../utils/notifications';
+import { useParams } from 'react-router-dom';
 
 export default function FileUploadDialog() {
     const isOpen = useSelector((state) => state.fileUploadDialog.open);
 
+    const { slug: foldername } = useParams();
     const [files, setFiles] = useState([]);
-    const [folderName, setFolderName] = useState('');
-
-    const naviagte = useNavigate();
+    const [folderName, setFolderName] = useState();
 
     const dispatch = useDispatch();
 
@@ -21,6 +20,10 @@ export default function FileUploadDialog() {
         setFiles([]);
     };
 
+    useEffect(() => {
+        setFolderName(foldername);
+    }, [foldername]);
+
     // file upload hanlde **********************************************
     const handleUpload = () => {
         if (folderName && files?.length === 0) {
@@ -28,19 +31,21 @@ export default function FileUploadDialog() {
             return;
         }
 
-        const currentDate = new Date().toLocaleDateString();
+        const currentDate = new Date();
         dispatch(
             fileUpload({
                 files,
                 folder_name: folderName || null,
-                folder_created_at: folderName ? currentDate : null,
+                folder_created_at: folderName
+                    ? currentDate.toDateString()
+                    : null,
             })
         );
         setFiles([]);
         setFolderName('');
         dispatch(close());
         sendNotification('success', 'Files uploaded successfully');
-        if (folderName) return naviagte(`/folder/${folderName}`);
+        // if (folderName) return naviagte(`/folder/${folderName}`);
     };
 
     return (

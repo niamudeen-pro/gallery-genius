@@ -9,10 +9,18 @@ const fileSlice = createSlice({
         fileUpload: (state, action) => {
             const { files, folder_name, folder_created_at } = action.payload;
 
-            // Convert files to metadata
-            // const fileMetadata = files.map((file) => ({
-            //     ...file, // Spread all properties of the file object
-            // }));
+            if (folder_name) {
+                const findIndex = state.data.findIndex(
+                    (item) => item.folder_name === folder_name
+                );
+                if (findIndex !== -1) {
+                    state.data[findIndex].list = [
+                        ...state.data[findIndex].list,
+                        ...files,
+                    ];
+                    return;
+                }
+            }
 
             state.data.push({
                 list: files,

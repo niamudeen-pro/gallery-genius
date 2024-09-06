@@ -8,7 +8,12 @@ export default function FolderPage() {
     const { slug: folderName } = useParams();
 
     const { folders } = useFileAndFolder();
-    const currentFolder = folders.find((folder) => folder.name === folderName);
+
+    const currentFolder = folders.find(
+        (folder) =>
+            folder.name.toLocaleLowerCase() === folderName?.toLocaleLowerCase()
+    );
+
     const isFolderNameExist = currentFolder ? true : false;
 
     return (
