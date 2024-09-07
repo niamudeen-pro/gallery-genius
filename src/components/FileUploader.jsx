@@ -1,5 +1,5 @@
+import { useRef } from 'react';
 import { fileSizeConverter, getFileIconByMimeType } from '../utils/helper';
-import { FaImage } from 'react-icons/fa6';
 
 export default function FileUploader({
     setFiles,
@@ -7,15 +7,28 @@ export default function FileUploader({
     folderName,
     setFolderName,
 }) {
+    const inputRef = useRef();
     const handleOnChange = (event) => {
         const newFiles = Array.from(event.target.files);
         setFiles([...files, ...newFiles]);
+        updateInputFileCount([...files, ...newFiles]);
     };
 
     const handleDeleteFile = (index) => {
-        const newFiles = [...files];
-        newFiles.splice(index, 1);
+        const newFiles = files.filter((_, i) => i !== index);
         setFiles(newFiles);
+        updateInputFileCount(newFiles);
+    };
+
+    const updateInputFileCount = (newFiles) => {
+        // Manually clear the input value
+        inputRef.current.value = '';
+
+        const dataTransfer = new DataTransfer();
+        newFiles.forEach((file) => dataTransfer.items.add(file));
+
+        // Update the input value
+        inputRef.current.files = dataTransfer.files;
     };
 
     const renderIcon = (file) => {
@@ -23,14 +36,20 @@ export default function FileUploader({
 
         return icon;
     };
+
+    const findProgressbarColor = (file) => {
+        const { color } = getFileIconByMimeType(file.type);
+
+        return color;
+    };
     return (
         <>
             <div className="space-y-8">
-                <p className="text-gray-400 text-sm">
-                    Please note that storing images in this folder is optional.
-                    You can choose to use this folder for your images, or you
-                    can store them elsewhere if you prefer.
-                </p>
+                {/* folder name section */}
+
+                {/* file uploader section */}
+
+                <h2>Upload your files</h2>
 
                 <div className="space-y-2">
                     <label>Folder name</label>
@@ -41,51 +60,51 @@ export default function FileUploader({
                         onChange={(e) => setFolderName(e.target.value)}
                     />
                 </div>
-                <div className="bg-soft_gray rounded-md p-16 flex_center">
-                    <label
-                        htmlFor="file-uploader"
-                        className="text-base cursor-pointer flex justify-center flex-col items-center gap-3"
-                    >
-                        <FaImage size={34} className="text-gray-200" />
-                        <p className="text-base">Browse Files</p>
-                        {/* <p className="text-xs text-gray-400">
-                                JPG, PNG or JPEG (size. 200KB)
-                            </p> */}
-                    </label>
-                    <input
-                        id="file-uploader"
-                        type="file"
-                        multiple
-                        hidden
-                        onChange={handleOnChange}
-                    />
-                </div>
+                <p className="text-xs">
+                    Please note that storing images in this folder is optional.
+                    You can choose to use this folder for your images, or you
+                    can store them elsewhere if you prefer.
+                </p>
+
+                {/* file upload input */}
+                <input
+                    type="file"
+                    multiple
+                    onChange={handleOnChange}
+                    ref={inputRef}
+                />
 
                 {/* files */}
                 <div className="max-h-[300px] overflow-auto hide_scrollbar space-y-4">
                     {files.length > 0 &&
                         files.map((file, index) => (
                             <div
-                                className="bg-soft_gray rounded-md p-5 flex_between"
+                                className="p-5 flex_between rounded-md"
                                 key={index}
                             >
                                 <div className="flex items-center gap-4 w-[90%]">
                                     {renderIcon(file)}
-
-                                    <div className="space-y-2 w-full">
-                                        <p className="text-base">
+                                    <div className="w-full space-y-2">
+                                        <p className="text-black">
                                             {file.name.substring(0, 35)}
                                         </p>
-                                        <p className="text-xs text-gray-500">
+                                        <p className="text-xs">
                                             {fileSizeConverter(file.size)} KB
                                         </p>
+
+                                        {/* progress bar */}
+                                        <div
+                                            className={`h-1 w-full rounded-lg ${findProgressbarColor(
+                                                file
+                                            )}`}
+                                        ></div>
                                     </div>
                                 </div>
 
                                 {/* close button */}
                                 <button
                                     type="button"
-                                    className="text-gray-400 bg-transparent hover:bg-white hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center "
                                     onClick={() => handleDeleteFile(index)}
                                 >
                                     <svg

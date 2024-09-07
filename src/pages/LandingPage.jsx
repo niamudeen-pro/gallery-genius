@@ -9,7 +9,7 @@ const buttonsActionsList = [
     },
     {
         name: 'Downloads',
-        path: '/downloads',
+        path: '/uploads',
         className: 'white_btn',
     },
 ];

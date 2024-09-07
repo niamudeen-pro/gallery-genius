@@ -3,6 +3,7 @@ import useFileAndFolder from '../hooks/useFileAndFolder';
 import { FaFolder } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { GoDotFill } from 'react-icons/go';
+import { AnimatedTooltip } from '../components/ui/AnimatedToolTip';
 
 export default function UploadsPage() {
     const { folders, files } = useFileAndFolder();
@@ -31,8 +32,8 @@ export default function UploadsPage() {
                                 folders.map((folder, index) => (
                                     <div
                                         key={index}
-                                        className="bg-gray-50/70 p-8 rounded-xl max-w-[40rem] w-full mx-auto relative cursor-pointer 
-                                transition-all duration-300 ease-in-out group space-y-8"
+                                        id="folder"
+                                        className="bg-gray-50/70 p-8 rounded-xl max-w-[40rem] w-full mx-auto relative cursor-pointer group transition-all duration-300 ease-in-out space-y-8"
                                     >
                                         {/* folder title */}
                                         <div className="flex items-center gap-4">
@@ -41,7 +42,7 @@ export default function UploadsPage() {
                                                 className="text-yellow-400"
                                             />
                                             <div>
-                                                <p className="text-lg capitalize">
+                                                <p className="text-black text-base capitalize">
                                                     {folder.name}
                                                 </p>
                                             </div>
@@ -61,11 +62,23 @@ export default function UploadsPage() {
                                                 </p>
                                             </div>
                                         </div>
-                                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+
+                                        {/* previvew files  */}
+                                        <div className="flex items-center  w-full">
+                                            {folder?.files?.length > 0 && (
+                                                <AnimatedTooltip
+                                                    files={folder?.files}
+                                                />
+                                            )}
+                                        </div>
+
+                                        {/* download button */}
+                                        <div>
                                             <Link
                                                 to={`/folder/${(folder?.name).toLowerCase()}`}
+                                                id="view_btn"
                                             >
-                                                <button className="btn w-full hover:bg-transparent hover:border-black hover:shadow-none hover:border hover:text-black transition-all duration-300">
+                                                <button className="btn w-full hover:bg-transparent hover:border-black hover:shadow-none hover:border hover:text-black transition-all duration-300 opacity-0 group-hover:opacity-100">
                                                     View
                                                 </button>
                                             </Link>

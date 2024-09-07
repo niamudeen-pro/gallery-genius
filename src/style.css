@@ -51,6 +51,10 @@ p {
 /* custom css ends  here  */
 
 @layer utilities {
+    p {
+        @apply text-gray-400 text-sm;
+    }
+
     .custom_container {
         @apply container mx-auto  px-[8%];
     }
@@ -87,3 +91,20 @@ p {
         @apply sectionCustomHeight  custom_container flex_center  p-8;
     }
 }
+
+/* #view_btn,
+#download_btn,
+#folder,
+#file {
+    transition: all 0.5s ease-in-out;
+}
+
+#folder #view_btn,
+#file #download_btn {
+    display: none;
+}
+
+#folder:hover #view_btn,
+#file:hover #download_btn {
+    display: block;
+} */

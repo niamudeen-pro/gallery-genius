@@ -44,6 +44,7 @@ export default function FileUploadDialog() {
         setFiles([]);
         setFolderName('');
         dispatch(close());
+
         sendNotification('success', 'Files uploaded successfully');
         // if (folderName) return naviagte(`/folder/${folderName}`);
     };
@@ -52,7 +53,7 @@ export default function FileUploadDialog() {
         <>
             {isOpen && (
                 <div className="fixed bg-backdrop inset-0 w-full h-full z-50 flex_center px-[8%]">
-                    <div className="relative bg-white rounded-3xl shadow max-w-2xl w-full min-h-[600px] p-8">
+                    <div className="relative bg-white rounded-3xl shadow max-w-xl w-full  overflow-hidden p-8">
                         {/* close button */}
                         <div className="flex items-center justify-between">
                             <button
@@ -79,7 +80,7 @@ export default function FileUploadDialog() {
                             </button>
                         </div>
                         {/* Form  */}
-                        <div className="mt-8 mb-16">
+                        <div className="mb-16">
                             <FileUploader
                                 files={files}
                                 setFiles={setFiles}

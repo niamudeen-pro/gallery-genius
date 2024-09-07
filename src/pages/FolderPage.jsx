@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import { FaFolderOpen } from 'react-icons/fa6';
 import FilesList from '../components/FilesList';

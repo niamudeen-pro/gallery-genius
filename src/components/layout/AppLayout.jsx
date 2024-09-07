@@ -33,9 +33,9 @@ export default function AppLayout() {
             {/* open file uploader button */}
 
             {currentRoute !== '/' && (
-                <div className="fixed bottom-20 left-0 w-full flex_center">
+                <div className="fixed bottom-20 left-0 w-full flex_center cursor-pointer">
                     <button
-                        className="bg-black rounded-full w-14 h-14 shadow-lg flex_center cursor-pointer"
+                        className="bg-black rounded-full w-14 h-14 shadow-lg flex_center "
                         type="button"
                         onClick={handleOpenFileDialog}
                     >
