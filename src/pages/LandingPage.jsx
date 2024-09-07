@@ -1,20 +1,28 @@
 import { Link } from 'react-router-dom';
-import { Spotlight } from '../components/ui/SpotLight';
+import { MovingBorderButton } from '../components/button';
+
+const buttonsActionsList = [
+    {
+        name: 'Go to uploads',
+        path: '/uploads',
+        hasMovingBorder: true,
+    },
+    {
+        name: 'Downloads',
+        path: '/downloads',
+        className: 'white_btn',
+    },
+];
 
 export default function LandingPage() {
     return (
-        <div className="sectionCustomHeight w-full dark:bg-black dark:bg-grid-white/[0.2]  relative flex items-center justify-center  bg-black/[0.96]  bg-grid-white/[0.02]">
-            <Spotlight
-                className="-top-40 left-0 md:left-60 md:-top-20"
-                fill="white"
-            />
-            <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black  [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-            <div className="section">
-                <div className="max-w-4xl grid gap-4">
-                    <h1 className="text-white">
-                        Upload with Ease, Share with Confidence
+        <section className="sectionCustomHeight  w-full  relative flex items-center justify-center  bg-black/[0.96]  bg-grid-white/[0.02]">
+            <div className="custom_container flex_center">
+                <div className="max-w-4xl space-y-4">
+                    <h1 className="font-bold  text-white">
+                        Upload with Ease, Share & Confidence
                     </h1>
-                    <p className="text-gray-400">
+                    <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base  ">
                         Welcome to Gallery Genius ! Effortlessly upload and
                         manage your files with just a few clicks. Whether it’s
                         photos, documents, or videos, our intuitive platform
@@ -22,20 +30,38 @@ export default function LandingPage() {
                         accessible whenever you need them. Start sharing your
                         files today – it’s quick, secure, and simple!
                     </p>
+                    {/* action buttons */}
                     <div className="space-x-4">
-                        <Link to="/downloads">
-                            <button className="white_btn">
-                                <span>Downloads</span>
-                            </button>
-                        </Link>
-                        <Link to="/uploads">
-                            <button className="btn1">
-                                <span>Go to Uploads</span>
-                            </button>
-                        </Link>
+                        {buttonsActionsList?.length > 0 &&
+                            buttonsActionsList.map((button, index) => (
+                                <ActionButtons
+                                    key={index}
+                                    className={button.className}
+                                    path={button.path}
+                                    item={button}
+                                >
+                                    {button.name}
+                                </ActionButtons>
+                            ))}
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+    );
+}
+
+function ActionButtons({ children, className, path, item }) {
+    return (
+        <>
+            {item.hasMovingBorder ? (
+                <Link to={path}>
+                    <MovingBorderButton>{children}</MovingBorderButton>
+                </Link>
+            ) : (
+                <Link to={path}>
+                    <button className={className}>{children}</button>
+                </Link>
+            )}
+        </>
     );
 }

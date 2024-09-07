@@ -48,40 +48,6 @@ p {
     font-family: 'Inter', sans-serif;
 }
 
-.btn1 {
-    @apply relative py-3 px-8 rounded-lg capitalize cursor-pointer border-white border-[1px] text-white overflow-hidden;
-    /* @apply relative py-3 px-8 rounded-lg capitalize cursor-pointer border-black bg-gray-100 overflow-hidden; */
-}
-
-.btn1:before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: #fff;
-    /* background-color: black; */
-    width: 0;
-    height: 100%;
-    top: 0;
-    left: 0;
-    transition: width 0.4s ease;
-    z-index: 0;
-}
-
-.btn1:hover:before,
-.btn1.active_btn:before {
-    width: 100%;
-}
-.btn1:hover span,
-.btn1.active_btn span {
-    color: #000;
-    /* color: white; */
-}
-
-.btn1 span {
-    position: relative;
-    z-index: 1;
-}
-
 /* custom css ends  here  */
 
 @layer utilities {
@@ -111,6 +77,10 @@ p {
 
     .grayBtn {
         @apply text-sm  bg-gray-100 py-3 px-8 rounded-md transition-all duration-300 ease-in-out;
+    }
+
+    .colorless_btn {
+        @apply text-white text-sm py-4 px-10 rounded-lg shadow-lg capitalize cursor-pointer  border-white border-[1px] transition-all duration-300 ease-in-out;
     }
 
     .section {

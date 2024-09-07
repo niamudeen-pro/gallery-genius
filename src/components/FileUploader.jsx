@@ -18,6 +18,11 @@ export default function FileUploader({
         setFiles(newFiles);
     };
 
+    const renderIcon = (file) => {
+        const { icon } = getFileIconByMimeType(file.type);
+
+        return icon;
+    };
     return (
         <>
             <div className="space-y-8">
@@ -65,7 +70,7 @@ export default function FileUploader({
                                 key={index}
                             >
                                 <div className="flex items-center gap-4 w-[90%]">
-                                    {getFileIconByMimeType(file.type)}
+                                    {renderIcon(file)}
 
                                     <div className="space-y-2 w-full">
                                         <p className="text-base">

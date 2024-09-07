@@ -1,12 +1,12 @@
 import {
-    FaFileImage,
-    FaFileVideo,
     FaFilePdf,
-    FaFileAudio,
     FaFileExcel,
     FaFileWord,
-    FaFileAlt,
+    FaImage,
+    FaMusic,
 } from 'react-icons/fa';
+import { RiVideoFill } from 'react-icons/ri';
+import { FaFileLines } from 'react-icons/fa6';
 
 export const setDataIntoLc = (key, value, isJson = false) => {
     if (isJson) {
@@ -33,7 +33,7 @@ const FILE_ICON_SIZE = 34;
 export const FILE_ICONS = [
     {
         type: 'image',
-        icon: <FaFileImage size={FILE_ICON_SIZE} className="text-blue-600" />,
+        icon: <FaImage size={FILE_ICON_SIZE} className="text-purple-600" />,
         mimeTypes: [
             'image/png',
             'image/jpeg',
@@ -43,10 +43,12 @@ export const FILE_ICONS = [
             'image/webp',
             'image/bmp',
         ],
+        outerColor: 'bg-purple-100',
+        innerColor: 'bg-purple-300',
     },
     {
         type: 'video',
-        icon: <FaFileVideo size={FILE_ICON_SIZE} className="text-red-600" />,
+        icon: <RiVideoFill size={FILE_ICON_SIZE} className="text-red-600" />,
         mimeTypes: [
             'video/mp4',
             'video/quicktime',
@@ -55,10 +57,12 @@ export const FILE_ICONS = [
             'video/webm',
             'video/ogg',
         ],
+        outerColor: 'bg-red-100',
+        innerColor: 'bg-red-300',
     },
     {
         type: 'audio',
-        icon: <FaFileAudio size={FILE_ICON_SIZE} className="text-pink-500" />,
+        icon: <FaMusic size={FILE_ICON_SIZE} className="text-pink-500" />,
         mimeTypes: [
             'audio/mpeg',
             'audio/wav',
@@ -68,11 +72,15 @@ export const FILE_ICONS = [
             'audio/webm',
             'audio/mp3',
         ],
+        outerColor: 'bg-pink-100',
+        innerColor: 'bg-pink-300',
     },
     {
         type: 'pdf',
         icon: <FaFilePdf size={FILE_ICON_SIZE} className="text-orange-600" />,
         mimeTypes: ['application/pdf'],
+        outerColor: 'bg-orange-100',
+        innerColor: 'bg-orange-300',
     },
     {
         type: 'excel',
@@ -81,6 +89,8 @@ export const FILE_ICONS = [
             'application/vnd.ms-excel',
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ],
+        outerColor: 'bg-green-100',
+        innerColor: 'bg-green-300',
     },
     {
         type: 'doc',
@@ -89,19 +99,29 @@ export const FILE_ICONS = [
             'application/msword',
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         ],
+        outerColor: 'bg-blue-100',
+        innerColor: 'bg-blue-300',
     },
 ];
 
 export const getFileIconByMimeType = (mimeType) => {
-    const iconData = FILE_ICONS.find((file) =>
-        file.mimeTypes.includes(mimeType)
-    );
+    const menu = FILE_ICONS.find((file) => file.mimeTypes.includes(mimeType));
 
-    return iconData ? (
-        iconData.icon
-    ) : (
-        <FaFileAlt size={FILE_ICON_SIZE} className="text-yellow-400" />
-    );
+    if (!menu)
+        return {
+            icon: (
+                <FaFileLines size={FILE_ICON_SIZE} className="text-gray-600" />
+            ),
+            outerColor: 'bg-gray-100',
+            innerColor: 'bg-gray-300',
+        };
+
+    return {
+        icon: menu.icon,
+        outerColor: menu.outerColor,
+        innerColor: menu.innerColor,
+        iconColor: menu.iconColor,
+    };
 };
 export const fileSizeConverter = (bytes) => {
     if (!bytes) return null;

@@ -1,6 +1,10 @@
 import { fileSizeConverter, getFileIconByMimeType } from '../utils/helper';
 
 export default function FilesList({ files }) {
+    const renderIcon = (file) => {
+        const { icon: Icon } = getFileIconByMimeType(file.type);
+        return Icon;
+    };
     return (
         <>
             {files?.length === 0 ? (
@@ -47,7 +51,7 @@ export default function FilesList({ files }) {
                                                     support the video tag.
                                                 </video>
                                             ) : (
-                                                getFileIconByMimeType(file.type)
+                                                renderIcon(file)
                                             )
                                         ) : (
                                             <div>No valid file selected</div>
